@@ -12,6 +12,7 @@ namespace ABB.CodeQueries
     public class Queries
     {
         public static IEnumerable<MethodDefinition> GetAllMethods(SourceFolder folder) {
+            return folder.Data.GlobalScope.GetDescendantScopesAndSelf<MethodDefinition>();
             return folder.Data.GlobalScope.GetChildScopes<MethodDefinition>();
         }
 
