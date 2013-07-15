@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ABB.SrcML">
-      <HintPath>..\External\Libraries\ABB.SrcML.dll</HintPath>
-    </Reference>
     <Reference Include="ABB.SrcML.Core">
       <HintPath>..\External\Libraries\ABB.SrcML.Core.dll</HintPath>
     </Reference>

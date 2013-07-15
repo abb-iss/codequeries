@@ -16,9 +16,8 @@ namespace ABB.CodeQueries {
 
         public DataRepository Data { get; private set; }
 
-        public SourceFolder(string path) {
+        public SourceFolder(string path, ISrcMLArchive archive) {
             this.Info = new DirectoryInfo(path);
-            var archive = new SrcMLArchive(Directory.GetCurrentDirectory(), String.Format("srcML-{0}", Path.GetFileName(this.FullPath)));
             Archive = archive;
         }
 
@@ -40,7 +39,7 @@ namespace ABB.CodeQueries {
                 Console.WriteLine("Adding {0}", sourceFile);
                 Archive.AddOrUpdateFile(sourceFile);
             }
-            this.Data = new DataRepository(Archive as SrcMLArchive);
+            this.Data = new DataRepository(Archive);
         }
     }
 }
