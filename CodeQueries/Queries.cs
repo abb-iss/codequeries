@@ -13,7 +13,7 @@ namespace ABB.CodeQueries
     {
         public static IEnumerable<MethodDefinition> GetAllMethods(SourceFolder folder) {
             return folder.Data.GlobalScope.GetDescendantScopesAndSelf<MethodDefinition>();
-            return folder.Data.GlobalScope.GetChildScopes<MethodDefinition>();
+//            return folder.Data.GlobalScope.GetChildScopes<MethodDefinition>();
         }
 
         public static Dictionary<string, IList<MethodDefinition>> GetAllMethodsByName(SourceFolder folder) {
