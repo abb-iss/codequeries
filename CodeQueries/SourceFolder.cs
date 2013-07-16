@@ -35,7 +35,10 @@ namespace ABB.CodeQueries {
         }
 
         public void UpdateArchive() {
-            foreach(var sourceFile in GetSourceFiles()) {
+            var outdatedFiles = from file in GetSourceFiles()
+                                where Archive.IsOutdated(file)
+                                select file;
+            foreach(var sourceFile in outdatedFiles) {
                 Console.WriteLine("Adding {0}", sourceFile);
                 Archive.AddOrUpdateFile(sourceFile);
             }

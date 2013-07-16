@@ -13,7 +13,6 @@ namespace ABB.CodeQueries
     {
         public static IEnumerable<MethodDefinition> GetAllMethods(SourceFolder folder) {
             return folder.Data.GlobalScope.GetDescendantScopesAndSelf<MethodDefinition>();
-            return folder.Data.GlobalScope.GetChildScopes<MethodDefinition>();
         }
 
         public static Dictionary<string, IList<MethodDefinition>> GetAllMethodsByName(SourceFolder folder) {
@@ -26,6 +25,13 @@ namespace ABB.CodeQueries
                 results[group.Key] = group.ToList<MethodDefinition>();
             }
             return results;
+        }
+
+        public static IEnumerable<MethodCall> GetAllCalls(SourceFolder folder) {
+            var allCalls = from scope in folder.Data.GlobalScope.GetDescendantScopesAndSelf()
+                           from call in scope.MethodCalls
+                           select call;
+            return allCalls;
         }
     }
 }
