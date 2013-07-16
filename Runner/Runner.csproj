@@ -35,17 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ABB.SrcML, Version=2.0.251.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ABB.SrcML, Version=2.0.252.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\Libraries\ABB.SrcML.dll</HintPath>
+      <HintPath>..\..\SrcML.NET\Build\Debug\ABB.SrcML.dll</HintPath>
     </Reference>
     <Reference Include="ABB.SrcML.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\Libraries\ABB.SrcML.Core.dll</HintPath>
+      <HintPath>..\..\SrcML.NET\ABB.SrcML.Core\obj\Debug\ABB.SrcML.Core.dll</HintPath>
     </Reference>
-    <Reference Include="ABB.SrcML.Data, Version=2.0.251.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ABB.SrcML.Data, Version=2.0.252.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\Libraries\ABB.SrcML.Data.dll</HintPath>
+      <HintPath>..\..\SrcML.NET\ABB.SrcML.Data\obj\Debug\ABB.SrcML.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
