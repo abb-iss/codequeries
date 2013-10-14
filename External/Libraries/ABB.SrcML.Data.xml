@@ -6,141 +6,16 @@
     <members>
         <member name="T:ABB.SrcML.Data.AbstractCodeParser">
             <summary>
-            <para>AbstractCodeParser is used to parse SrcML files and extract useful info from the elements. Implementations of this class provide language-specific functions to extract useful data from the class.</para>
-            <para>The entry point for this class is the <see cref="M:ABB.SrcML.Data.AbstractCodeParser.ParseFileUnit(System.Xml.Linq.XElement)"/> method.</para>
+            <para>AbstractCodeParser is used to parse SrcML files and extract useful info from the
+            elements. Implementations of this class provide language-specific functions to extract
+            useful data from the class.</para> <para>The entry point for this class is the
+            <see cref="M:ABB.SrcML.Data.AbstractCodeParser.ParseFileUnit(System.Xml.Linq.XElement)"/> method.</para>
             </summary>
         </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.#ctor">
             <summary>
             Creates a new abstract code parser object. Should only be called by child classes.
             </summary>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseFileUnit(System.Xml.Linq.XElement)">
-            <summary>
-            Parses a file unit and returns a <see cref="P:ABB.SrcML.Data.NamespaceDefinition.IsGlobal">global</see> <see cref="T:ABB.SrcML.Data.NamespaceDefinition">namespace definition</see> object
-            </summary>
-            <param name="fileUnit">The file unit to parse</param>
-            <returns>a global namespace definition for <paramref name="fileUnit"/></returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseFileUnit_Concurrent(System.Xml.Linq.XElement)">
-            <summary>
-            Concurrently parses a file unit and returns a <see cref="P:ABB.SrcML.Data.NamespaceDefinition.IsGlobal">global</see> <see cref="T:ABB.SrcML.Data.NamespaceDefinition">namespace definition</see> object
-            </summary>
-            <param name="fileUnit">The file unit to parse</param>
-            <returns>a global namespace definition for <paramref name="fileUnit"/></returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            This is the main function that parses srcML nodes. It selects the appropriate parse element to call and then adds declarations, method calls, and children to it
-            </summary>
-            <param name="element">The element to parse</param>
-            <param name="context">The parser context</param>
-            <returns>The scope representing <paramref name="element"/></returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseElement_Concurrent(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            This is the main function that parses srcML nodes. It selects the appropriate parse element to call and then adds declarations, method calls, and children to it
-            </summary>
-            <param name="element">The element to parse</param>
-            <param name="context">The parser context</param>
-            <returns>The scope representing <paramref name="element"/></returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseContainerElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            Creates a <see cref="T:ABB.SrcML.Data.Scope"/> object for <paramref name="element"/> and pushes it onto <paramref name="context"/>
-            </summary>
-            <param name="element">The element to parse</param>
-            <param name="context">the context to place the resulting scope on</param>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseMethodElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            Creates a <see cref="T:ABB.SrcML.Data.MethodDefinition"/> object for <paramref name="methodElement"/> and pushes it onto <paramref name="context"/>
-            </summary>
-            <param name="methodElement">The element to parse</param>
-            <param name="context">The context to place the resulting method definition in</param>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseNamespaceElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            Creates a <see cref="T:ABB.SrcML.Data.NamespaceDefinition"/> object for <paramref name="namespaceElement"/> and pushes it onto <paramref name="context"/>
-            </summary>
-            <param name="namespaceElement">The element to parse</param>
-            <param name="context">The context to place the resulting namespace definition in</param>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseTypeElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            Parses a type element and pushes a it onto the <paramref name="context"/>.
-            </summary>
-            <param name="typeElement">the type element to parse</param>
-            <param name="context">The parser context</param>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseUnitElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            Creates a global <see cref="T:ABB.SrcML.Data.NamespaceDefinition"/> object for <paramref name="unitElement"/> and pushes it onto <paramref name="context"/>
-            </summary>
-            <param name="unitElement">The element to parse</param>
-            <param name="context">The context to place the resulting namespace definition in</param>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseAliasElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            Creates an <see cref="T:ABB.SrcML.Data.Alias"/> object from a using import (such as using in C++ and C# and import in Java).
-            </summary>
-            <param name="aliasStatement">The statement to parse. Should be of type <see cref="P:ABB.SrcML.Data.AbstractCodeParser.AliasElementName"/></param>
-            <param name="context">The context to place the resulting alias in</param>
-            <returns>a new alias object that represents this alias statement</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseCallElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            Creates a method call object
-            </summary>
-            <param name="callElement">The XML element to parse</param>
-            <param name="context">The parser context</param>
-            <returns>A method call for <paramref name="callElement"/></returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseDeclarationElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            Creates variable declaration objects from the given declaration element 
-            </summary>
-            <param name="declarationElement">The variable declaration to parse. Must belong to <see cref="P:ABB.SrcML.Data.AbstractCodeParser.VariableDeclarationElementNames"/></param>
-            <param name="context">The parser context</param>
-            <returns>One variable declaration object for each declaration in <paramref name="declarationElement"/></returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseMethodParameterElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            Generates a parameter declaration for the given declaration
-            </summary>
-            <param name="declElement">The declaration XElement from within the parameter element. Must be a <see cref="F:ABB.SrcML.SRC.Declaration"/> or <see cref="F:ABB.SrcML.SRC.FunctionDeclaration"/></param>
-            <param name="context">the parser context</param>
-            <returns>A parameter declaration object</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseTypeUseElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            Creates a type use element
-            </summary>
-            <param name="typeUseElement">the element to parse. Must be of a <see cref="F:ABB.SrcML.SRC.Type"/> or <see cref="F:ABB.SrcML.SRC.Name"/></param>
-            <param name="context">the parser context</param>
-            <returns>A Type Use object</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetParentTypeUseElements(System.Xml.Linq.XElement)">
-            <summary>
-            Gets the type use elements from a <see cref="P:ABB.SrcML.Data.AbstractCodeParser.TypeElementNames">type definition element</see>
-            </summary>
-            <param name="typeElement">The type element. Must belong to <see cref="P:ABB.SrcML.Data.AbstractCodeParser.TypeElementNames"/></param>
-            <returns>An enumerable of type uses that represent parent types</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseNamedScopeUsePrefix(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            Creates a named scope use element
-            </summary>
-            <param name="nameElement">The name element to parse</param>
-            <param name="context">The parser context</param>
-            <returns>A named scope use for this element</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetParametersFromMethodElement(System.Xml.Linq.XElement)">
-            <summary>
-            Gets all of the parameters for this method. It finds the variable declarations in parameter list.
-            </summary>
-            <param name="method">The method container</param>
-            <returns>An enumerable of all the declaration XElements.</returns>
         </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.CreateResolvableUse(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
             <summary>
@@ -152,32 +27,191 @@
         </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.CreateVariableUse(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
             <summary>
-            Creates a variable use from the given element. Must be a <see cref="F:ABB.SrcML.SRC.Expression"/>, <see cref="F:ABB.SrcML.SRC.Name"/>, or <see cref="F:ABB.SrcML.SRC.ExpressionStatement"/>
+            Creates a variable use from the given element. Must be a
+            <see cref="F:ABB.SrcML.SRC.Expression"/>, <see cref="F:ABB.SrcML.SRC.Name"/>, or
+            <see cref="F:ABB.SrcML.SRC.ExpressionStatement"/>
             </summary>
             <param name="element">The element to parse</param>
             <param name="context">The parser context</param>
             <returns>A variable use object</returns>
         </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetAliasElementsForFile(System.Xml.Linq.XElement)">
+            <summary>
+            Gets the alias elements for this file. This only returns the aliases at the root of the
+            file
+            </summary>
+            <param name="fileUnit">The file unit to get the aliases from</param>
+            <returns>The alias elements</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetParametersFromMethodElement(System.Xml.Linq.XElement)">
+            <summary>
+            Gets all of the parameters for this method. It finds the variable declarations in
+            parameter list.
+            </summary>
+            <param name="method">The method container</param>
+            <returns>An enumerable of all the declaration XElements.</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetParentTypeUseElements(System.Xml.Linq.XElement)">
+            <summary>
+            Gets the type use elements from a <see cref="P:ABB.SrcML.Data.AbstractCodeParser.TypeElementNames">type definition
+            element</see>
+            </summary>
+            <param name="typeElement">The type element. Must belong to see
+            cref="TypeElementNames"/&gt;</param>
+            <returns>An enumerable of type uses that represent parent types</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseAliasElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Creates an <see cref="T:ABB.SrcML.Data.Alias"/> object from a using import (such as using in C++ and C#
+            and import in Java).
+            </summary>
+            <param name="aliasStatement">The statement to parse. Should be of type see
+            cref="AliasElementName"/&gt;</param>
+            <param name="context">The context to place the resulting alias in</param>
+            <returns>a new alias object that represents this alias statement</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseCallElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Creates a method call object
+            </summary>
+            <param name="callElement">The XML element to parse</param>
+            <param name="context">The parser context</param>
+            <returns>A method call for
+            <paramref name="callElement"/></returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseContainerElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Creates a <see cref="T:ABB.SrcML.Data.Scope"/> object for
+            <paramref name="element"/>and pushes it onto
+            <paramref name="context"/></summary>
+            <param name="element">The element to parse</param>
+            <param name="context">the context to place the resulting scope on</param>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseDeclarationElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Creates variable declaration objects from the given declaration element
+            </summary>
+            <param name="declarationElement">The variable declaration to parse. Must belong to see
+            cref="VariableDeclarationElementNames"/></param>
+            <param name="context">The parser context</param>
+            <returns>One variable declaration object for each declaration in
+            <paramref name="declarationElement"/></returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            This is the main function that parses srcML nodes. It selects the appropriate parse
+            element to call and then adds declarations, method calls, and children to it
+            </summary>
+            <param name="element">The element to parse</param>
+            <param name="context">The parser context</param>
+            <returns>The scope representing
+            <paramref name="element"/></returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseElement_Concurrent(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            This is the main function that parses srcML nodes. It selects the appropriate parse
+            element to call and then adds declarations, method calls, and children to it
+            </summary>
+            <param name="element">The element to parse</param>
+            <param name="context">The parser context</param>
+            <returns>The scope representing
+            <paramref name="element"/></returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseFileUnit(System.Xml.Linq.XElement)">
+            <summary>
+            Parses a file unit and returns a <see cref="P:ABB.SrcML.Data.NamespaceDefinition.IsGlobal">global</see>
+            <see cref="T:ABB.SrcML.Data.NamespaceDefinition">namespace definition</see> object
+            </summary>
+            <param name="fileUnit">The file unit to parse</param>
+            <returns>a global namespace definition for
+            <paramref name="fileUnit"/></returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseFileUnit_Concurrent(System.Xml.Linq.XElement)">
+            <summary>
+            Concurrently parses a file unit and returns a
+            <see cref="P:ABB.SrcML.Data.NamespaceDefinition.IsGlobal">global</see>
+            <see cref="T:ABB.SrcML.Data.NamespaceDefinition">namespace definition</see> object
+            </summary>
+            <param name="fileUnit">The file unit to parse</param>
+            <returns>a global namespace definition for
+            <paramref name="fileUnit"/></returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseMethodElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Creates a <see cref="T:ABB.SrcML.Data.MethodDefinition"/> object for
+            <paramref name="methodElement"/>and pushes it onto
+            <paramref name="context"/></summary>
+            <param name="methodElement">The element to parse</param>
+            <param name="context">The context to place the resulting method definition in</param>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseMethodParameterElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Generates a parameter declaration for the given declaration
+            </summary>
+            <param name="declElement">The declaration XElement from within the parameter element.
+            Must be a <see cref="F:ABB.SrcML.SRC.Declaration"/> or see
+            cref="ABB.SrcML.SRC.FunctionDeclaration"/&gt;</param>
+            <param name="context">the parser context</param>
+            <returns>A parameter declaration object</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseNamedScopeUsePrefix(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Creates a named scope use element
+            </summary>
+            <param name="nameElement">The name element to parse</param>
+            <param name="context">The parser context</param>
+            <returns>A named scope use for this element</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseNamespaceElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Creates a <see cref="T:ABB.SrcML.Data.NamespaceDefinition"/> object for
+            <paramref name="namespaceElement"/>and pushes it onto
+            <paramref name="context"/></summary>
+            <param name="namespaceElement">The element to parse</param>
+            <param name="context">The context to place the resulting namespace definition in</param>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseTypeElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Parses a type element and pushes a it onto the
+            <paramref name="context"/>.
+            </summary>
+            <param name="typeElement">the type element to parse</param>
+            <param name="context">The parser context</param>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseTypeUseElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Creates a type use element
+            </summary>
+            <param name="typeUseElement">the element to parse. Must be of a
+            <see cref="F:ABB.SrcML.SRC.Type"/> or see cref="ABB.SrcML.SRC.Name"/&gt;</param>
+            <param name="context">the parser context</param>
+            <returns>A Type Use object</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseUnitElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Creates a global <see cref="T:ABB.SrcML.Data.NamespaceDefinition"/> object for
+            <paramref name="unitElement"/>and pushes it onto
+            <paramref name="context"/></summary>
+            <param name="unitElement">The element to parse</param>
+            <param name="context">The context to place the resulting namespace definition in</param>
+        </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.AliasIsNamespaceImport(System.Xml.Linq.XElement)">
             <summary>
-            Checks if this alias statement is a namespace import or something more specific (such as a type or method)
+            Checks if this alias statement is a namespace import or something more specific (such as
+            a type or method)
             </summary>
-            <param name="aliasStatement">The alias statement to check. Must be of type <see cref="P:ABB.SrcML.Data.AbstractCodeParser.AliasElementName"/></param>
+            <param name="aliasStatement">The alias statement to check. Must be of type see
+            cref="AliasElementName"/></param>
             <returns>True if this is a namespace import; false otherwise</returns>
         </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetNamesFromAlias(System.Xml.Linq.XElement)">
             <summary>
             Gets all of the names for this alias
             </summary>
-            <param name="aliasStatement">The alias statement. Must be of type <see cref="P:ABB.SrcML.Data.AbstractCodeParser.AliasElementName"/></param>
-            <returns>An enumerable of all the <see cref="F:ABB.SrcML.SRC.Name">name elements</see> for this statement</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetAliasElementsForFile(System.Xml.Linq.XElement)">
-            <summary>
-            Gets the alias elements for this file. This only returns the aliases at the root of the file
-            </summary>
-            <param name="fileUnit">The file unit to get the aliases from</param>
-            <returns>The alias elements</returns>
+            <param name="aliasStatement">The alias statement. Must be of type see
+            cref="AliasElementName"/&gt;</param>
+            <returns>An enumerable of all the <see cref="F:ABB.SrcML.SRC.Name">name elements</see> for
+            this statement</returns>
         </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetChildContainers(System.Xml.Linq.XElement)">
             <summary>
@@ -186,23 +220,26 @@
             <param name="container">The container</param>
             <returns>An enumerable of all the children</returns>
         </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetChildContainersFromNamespace(System.Xml.Linq.XElement)">
-            <summary>
-            Gets all of the child containers for a namespace. It calls <see cref="M:ABB.SrcML.Data.AbstractCodeParser.GetChildContainers(System.Xml.Linq.XElement)"/> on the child block.
-            </summary>
-            <param name="container">The namespace container</param>
-            <returns>All of the child containers</returns>
-        </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetChildContainersFromMethod(System.Xml.Linq.XElement)">
             <summary>
-            Gets all of the child containers for a method. It calls <see cref="M:ABB.SrcML.Data.AbstractCodeParser.GetChildContainers(System.Xml.Linq.XElement)"/> on the child block.
+            Gets all of the child containers for a method. It calls
+            <see cref="M:ABB.SrcML.Data.AbstractCodeParser.GetChildContainers(System.Xml.Linq.XElement)"/> on the child block.
             </summary>
             <param name="container">The method container</param>
             <returns>All of the child containers</returns>
         </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetChildContainersFromNamespace(System.Xml.Linq.XElement)">
+            <summary>
+            Gets all of the child containers for a namespace. It calls
+            <see cref="M:ABB.SrcML.Data.AbstractCodeParser.GetChildContainers(System.Xml.Linq.XElement)"/> on the child block.
+            </summary>
+            <param name="container">The namespace container</param>
+            <returns>All of the child containers</returns>
+        </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetChildContainersFromType(System.Xml.Linq.XElement)">
             <summary>
-            Gets all of the child containers for a type. It calls <see cref="M:ABB.SrcML.Data.AbstractCodeParser.GetChildContainers(System.Xml.Linq.XElement)"/> on the child block.
+            Gets all of the child containers for a type. It calls
+            <see cref="M:ABB.SrcML.Data.AbstractCodeParser.GetChildContainers(System.Xml.Linq.XElement)"/> on the child block.
             </summary>
             <param name="container">The namespace type</param>
             <returns>All of the child containers</returns>
@@ -214,20 +251,6 @@
             <param name="element">The element to search</param>
             <returns>All of the call elements from the element</returns>
         </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetDeclarationsFromElement(System.Xml.Linq.XElement)">
-            <summary>
-            Gets the declaration elements from an element
-            </summary>
-            <param name="element">The element to search</param>
-            <returns>All of the declaration elements from an element</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetDeclarationsFromCatchElement(System.Xml.Linq.XElement)">
-            <summary>
-            Gets all of the variable declarations for this catch block. It finds the variable declarations in <see cref="F:ABB.SrcML.SRC.ParameterList"/>.
-            </summary>
-            <param name="container">The catch container</param>
-            <returns>An enumerable of all the declaration XElements.</returns>
-        </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetDeclarationsFromBlockElement(System.Xml.Linq.XElement)">
             <summary>
             Gets all of the variable declarations for this block.
@@ -235,34 +258,53 @@
             <param name="container">The type container</param>
             <returns>An enumerable of all the declaration XElements.</returns>
         </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetDeclarationsFromCatchElement(System.Xml.Linq.XElement)">
+            <summary>
+            Gets all of the variable declarations for this catch block. It finds the variable
+            declarations in <see cref="F:ABB.SrcML.SRC.ParameterList"/>.
+            </summary>
+            <param name="container">The catch container</param>
+            <returns>An enumerable of all the declaration XElements.</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetDeclarationsFromElement(System.Xml.Linq.XElement)">
+            <summary>
+            Gets the declaration elements from an element
+            </summary>
+            <param name="element">The element to search</param>
+            <returns>All of the declaration elements from an element</returns>
+        </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetDeclarationsFromForElement(System.Xml.Linq.XElement)">
             <summary>
-            Gets all of the variable declarations for this for loop. It finds the variable declaration in the <see cref="F:ABB.SrcML.SRC.Init"/> statement.
+            Gets all of the variable declarations for this for loop. It finds the variable
+            declaration in the <see cref="F:ABB.SrcML.SRC.Init"/> statement.
             </summary>
             <param name="container">The type container</param>
             <returns>An enumerable of all the declaration XElements.</returns>
         </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetDeclarationsFromMethodElement(System.Xml.Linq.XElement)">
             <summary>
-            Gets all of the variable declarations for this method. It finds the variable declarations in the child block.
+            Gets all of the variable declarations for this method. It finds the variable
+            declarations in the child block.
             </summary>
             <param name="container">The method container</param>
             <returns>An enumerable of all the declaration XElements.</returns>
         </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetDeclarationsFromTypeElement(System.Xml.Linq.XElement)">
             <summary>
-            Gets all of the variable declarations for this type. It finds the variable declarations in the child block.
+            Gets all of the variable declarations for this type. It finds the variable declarations
+            in the child block.
             </summary>
             <param name="container">The type container</param>
             <returns>An enumerable of all the declaration XElements.</returns>
         </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetAccessModifierForMethod(System.Xml.Linq.XElement)">
             <summary>
-            Gets the access modifier for this method. For Java and C#, a "specifier" tag is placed in either
-            the methodElement, or the typeElement in the method.
+            Gets the access modifier for this method. For Java and C#, a "specifier" tag is placed
+            in either the methodElement, or the typeElement in the method.
             </summary>
             <param name="methodElement">The methodElement</param>
-            <returns>The first specifier encountered. If none, it returns <see cref="F:ABB.SrcML.Data.AccessModifier.None"/></returns>
+            <returns>The first specifier encountered. If none, it returns see
+            cref="AccessModifier.None"/></returns>
         </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetAccessModifierForType(System.Xml.Linq.XElement)">
             <summary>
@@ -270,22 +312,6 @@
             </summary>
             <param name="typeElement">The type XElement</param>
             <returns>The access modifier for the type.</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseLiteralElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
-            <summary>
-            Parses a literal use element
-            </summary>
-            <param name="literalElement">The literal element to parse</param>
-            <param name="context">The parser context</param>
-            <returns>A literal use object</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetTypeForLiteralValue(ABB.SrcML.Data.LiteralKind,System.String)">
-            <summary>
-            Gets the type of the literal element
-            </summary>
-            <param name="kind">The literal kind</param>
-            <param name="literalValue">The value</param>
-            <returns>The name of this type</returns>
         </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetTypeForBooleanLiteral(System.String)">
             <summary>
@@ -301,6 +327,14 @@
             <param name="literalValue">the literal value to parse</param>
             <returns>The type name</returns>
         </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetTypeForLiteralValue(ABB.SrcML.Data.LiteralKind,System.String)">
+            <summary>
+            Gets the type of the literal element
+            </summary>
+            <param name="kind">The literal kind</param>
+            <param name="literalValue">The value</param>
+            <returns>The name of this type</returns>
+        </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetTypeForNumberLiteral(System.String)">
             <summary>
             Gets the type for a number literal
@@ -315,6 +349,14 @@
             <param name="literalValue">The literal value to parse</param>
             <returns>The type name</returns>
         </member>
+        <member name="M:ABB.SrcML.Data.AbstractCodeParser.ParseLiteralElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Parses a literal use element
+            </summary>
+            <param name="literalElement">The literal element to parse</param>
+            <param name="context">The parser context</param>
+            <returns>A literal use object</returns>
+        </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.ContainerIsReference(System.Xml.Linq.XElement)">
             <summary>
             Checks to see if this callElement is a reference container
@@ -326,8 +368,9 @@
             <summary>
             Gets the filename for the given file unit.
             </summary>
-            <param name="fileUnit">The file unit. <c>fileUnit.Name</c> must be <c>SRC.Unit</c></param>
-            <returns>The file path represented by this <paramref name="fileUnit"/></returns>
+            <param name="fileUnit">The file unit. <c>fileUnit.Name</c> must be /c></param>
+            <returns>The file path represented by this
+            <paramref name="fileUnit"/></returns>
         </member>
         <member name="M:ABB.SrcML.Data.AbstractCodeParser.GetNameForMethod(System.Xml.Linq.XElement)">
             <summary>
@@ -348,16 +391,23 @@
             Gets all of the text nodes that are children of the given element.
             </summary>
             <param name="element">The element</param>
-            <returns>An enumerable of the XText elements for <paramref name="element"/></returns>
+            <returns>An enumerable of the XText elements for
+            <paramref name="element"/></returns>
         </member>
-        <member name="P:ABB.SrcML.Data.AbstractCodeParser.ParserLanguage">
+        <member name="P:ABB.SrcML.Data.AbstractCodeParser.AliasElementName">
             <summary>
-            Returns the Language that this parser supports
+            Returns the XName that represents an import statement
             </summary>
         </member>
         <member name="P:ABB.SrcML.Data.AbstractCodeParser.ContainerElementNames">
             <summary>
             Returns the XNames that represent containers for this language
+            </summary>
+        </member>
+        <member name="P:ABB.SrcML.Data.AbstractCodeParser.ContainerReferenceElementNames">
+            <summary>
+            Returns the XNames that represent reference elements (such as function_decl and
+            class_decl)
             </summary>
         </member>
         <member name="P:ABB.SrcML.Data.AbstractCodeParser.MethodElementNames">
@@ -370,6 +420,11 @@
             Returns the XNames that represent namespaces for this language
             </summary>
         </member>
+        <member name="P:ABB.SrcML.Data.AbstractCodeParser.ParserLanguage">
+            <summary>
+            Returns the Language that this parser supports
+            </summary>
+        </member>
         <member name="P:ABB.SrcML.Data.AbstractCodeParser.TypeElementNames">
             <summary>
             Returns the XNames that represent types for this language
@@ -380,20 +435,10 @@
             Returns the XNames that represent variable declarations for this language
             </summary>
         </member>
-        <member name="P:ABB.SrcML.Data.AbstractCodeParser.ContainerReferenceElementNames">
-            <summary>
-            Returns the XNames that represent reference elements (such as function_decl and class_decl)
-            </summary>
-        </member>
-        <member name="P:ABB.SrcML.Data.AbstractCodeParser.AliasElementName">
-            <summary>
-            Returns the XName that represents an import statement
-            </summary>
-        </member>
         <member name="T:ABB.SrcML.Data.AbstractScopeUse`1">
             <summary>
-            Abstract Scope Use is a variable use for Named Scopes. It provides an implementation of <see cref="M:ABB.SrcML.Data.AbstractUse`1.FindMatches"/>
-            for resolving Named Scope uses
+            Abstract Scope Use is a variable use for Named Scopes. It provides an implementation of
+            <see cref="M:ABB.SrcML.Data.AbstractUse`1.FindMatches"/> for resolving Named Scope uses
             </summary>
             <typeparam name="DEFINITION">The type. Must be NamedScope or a subclass</typeparam>
         </member>
@@ -469,9 +514,11 @@
         </member>
         <member name="M:ABB.SrcML.Data.AbstractScopeUse`1.FindMatches">
             <summary>
-            Finds matching <typeparamref name="DEFINITION"/> from the <see cref="P:ABB.SrcML.Data.AbstractUse`1.ParentScopes"/> of this usage.
+            Finds matching <typeparamref name="DEFINITION"/> from the
+            <see cref="P:ABB.SrcML.Data.AbstractUse`1.ParentScopes"/> of this usage.
             </summary>
-            <returns>An enumerable of <typeparamref name="DEFINITION"/> objects that <see cref="M:ABB.SrcML.Data.AbstractUse`1.Matches(`0)">matches</see> this usage.</returns>
+            <returns>An enumerable of <typeparamref name="DEFINITION"/> objects that
+            <see cref="M:ABB.SrcML.Data.AbstractUse`1.Matches(`0)">matches</see> this usage.</returns>
         </member>
         <member name="T:ABB.SrcML.Data.AccessModifier">
             <summary>
@@ -596,6 +643,11 @@
             <param name="use">The type use to test</param>
             <returns>true if this is a built-in type; false otherwise</returns>
         </member>
+        <member name="T:ABB.SrcML.Data.TypeUse">
+            <summary>
+            Represents a use of a type. It is used in declarations and inheritance specifications.
+            </summary>
+        </member>
         <member name="T:ABB.SrcML.Data.IResolvesToType">
             <summary>
             This interface provides methods that <see cref="T:ABB.SrcML.Data.AbstractUse`1"/> objects should implement if they should resolve to a return type
@@ -624,6 +676,73 @@
             The parent scope for this calling object
             </summary>
         </member>
+        <member name="M:ABB.SrcML.Data.TypeUse.#ctor">
+            <summary>
+            Create a new type use object.
+            </summary>
+        </member>
+        <member name="M:ABB.SrcML.Data.TypeUse.AddTypeParameter(ABB.SrcML.Data.TypeUse)">
+            <summary>
+            Adds a generic type parameter to this type use
+            </summary>
+            <param name="typeParameter">The type parameter to add</param>
+        </member>
+        <member name="M:ABB.SrcML.Data.TypeUse.AddTypeParameters(System.Collections.Generic.IEnumerable{ABB.SrcML.Data.TypeUse})">
+            <summary>
+            Adds all of the type parameters to this type use element
+            </summary>
+            <param name="typeParameters">An enumerable of type use elements to add</param>
+        </member>
+        <member name="M:ABB.SrcML.Data.TypeUse.FindFirstMatchingType">
+            <summary>
+            Gets the first type that matches this use
+            </summary>
+            <returns>The matching type; null if there aren't any</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.TypeUse.FindMatches">
+            <summary>
+            Finds all of the matches for this type
+            </summary>
+            <returns>All of the type definitions that match this type use</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.TypeUse.FindMatchingTypes">
+            <summary>
+            This is just a call to <see cref="M:ABB.SrcML.Data.TypeUse.FindMatches"/>
+            </summary>
+            <returns>The matching type definitions for this use</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.TypeUse.Matches(ABB.SrcML.Data.TypeDefinition)">
+            <summary>
+            Tests if this type use is a match for the given
+            <paramref name="definition"/></summary>
+            <param name="definition">the definition to compare to</param>
+            <returns>true if the definitions match; false otherwise</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.TypeUse.ToString">
+            <summary>
+            Returns a string representation of this object.
+            </summary>
+        </member>
+        <member name="P:ABB.SrcML.Data.TypeUse.CallingObject">
+            <summary>
+            The calling object for this type (should be unused)
+            </summary>
+        </member>
+        <member name="P:ABB.SrcML.Data.TypeUse.IsGeneric">
+            <summary>
+            Returns true if <see cref="P:ABB.SrcML.Data.TypeUse.TypeParameters"/> has any elements
+            </summary>
+        </member>
+        <member name="P:ABB.SrcML.Data.TypeUse.Prefix">
+            <summary>
+            The prefix for this type use object
+            </summary>
+        </member>
+        <member name="P:ABB.SrcML.Data.TypeUse.TypeParameters">
+            <summary>
+            Parameters for the type use (indicates that this is a generic type use)
+            </summary>
+        </member>
         <member name="T:ABB.SrcML.Data.LiteralKind">
             <summary>
             An enumeration of the different kinds of literals
@@ -644,78 +763,6 @@
         <member name="T:ABB.SrcML.Data.LiteralUse">
             <summary>
             Literal use is a specific kind of type use that refers to a language's built-in types.
-            </summary>
-        </member>
-        <member name="T:ABB.SrcML.Data.TypeUse">
-            <summary>
-            Represents a use of a type. It is used in declarations and inheritance specifications.
-            </summary>
-        </member>
-        <member name="M:ABB.SrcML.Data.TypeUse.#ctor">
-            <summary>
-            Create a new type use object.
-            </summary>
-        </member>
-        <member name="M:ABB.SrcML.Data.TypeUse.AddTypeParameter(ABB.SrcML.Data.TypeUse)">
-            <summary>
-            Adds a generic type parameter to this type use
-            </summary>
-            <param name="typeParameter">The type parameter to add</param>
-        </member>
-        <member name="M:ABB.SrcML.Data.TypeUse.AddTypeParameters(System.Collections.Generic.IEnumerable{ABB.SrcML.Data.TypeUse})">
-            <summary>
-            Adds all of the type parameters to this type use element
-            </summary>
-            <param name="typeParameters">An enumerable of type use elements to add</param>
-        </member>
-        <member name="M:ABB.SrcML.Data.TypeUse.FindMatches">
-            <summary>
-            Finds all of the matches for this type
-            </summary>
-            <returns>All of the type definitions that match this type use</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.TypeUse.Matches(ABB.SrcML.Data.TypeDefinition)">
-            <summary>
-            Tests if this type use is a match for the given <paramref name="definition"/>
-            </summary>
-            <param name="definition">the definition to compare to</param>
-            <returns>true if the definitions match; false otherwise</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.TypeUse.FindMatchingTypes">
-            <summary>
-            This is just a call to <see cref="M:ABB.SrcML.Data.TypeUse.FindMatches"/>
-            </summary>
-            <returns>The matching type definitions for this use</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.TypeUse.FindFirstMatchingType">
-            <summary>
-            Gets the first type that matches this use
-            </summary>
-            <returns>The matching type; null if there aren't any</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.TypeUse.ToString">
-            <summary>
-            Returns a string representation of this object.
-            </summary>
-        </member>
-        <member name="P:ABB.SrcML.Data.TypeUse.CallingObject">
-            <summary>
-            The calling object for this type (should be unused)
-            </summary>
-        </member>
-        <member name="P:ABB.SrcML.Data.TypeUse.Prefix">
-            <summary>
-            The prefix for this type use object
-            </summary>
-        </member>
-        <member name="P:ABB.SrcML.Data.TypeUse.IsGeneric">
-            <summary>
-            Returns true if <see cref="P:ABB.SrcML.Data.TypeUse.TypeParameters"/> has any elements
-            </summary>
-        </member>
-        <member name="P:ABB.SrcML.Data.TypeUse.TypeParameters">
-            <summary>
-            Parameters for the type use (indicates that this is a generic type use)
             </summary>
         </member>
         <member name="M:ABB.SrcML.Data.LiteralUse.GetLiteralKind(System.Xml.Linq.XElement)">
@@ -740,20 +787,19 @@
             Constructs a C# code parser
             </summary>
         </member>
-        <member name="M:ABB.SrcML.Data.CSharpCodeParser.ParseTypeElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+        <member name="M:ABB.SrcML.Data.CSharpCodeParser.AliasIsNamespaceImport(System.Xml.Linq.XElement)">
             <summary>
-            Parses the given typeElement and returns a TypeDefinition object.
+            Checks if the using statement is a namespace import
             </summary>
-            <param name="typeElement">the type XML typeUseElement.</param>
-            <param name="context">the parser context</param>
-            <returns>A new TypeDefinition object</returns>
+            <param name="aliasStatement"></param>
+            <returns></returns>
         </member>
-        <member name="M:ABB.SrcML.Data.CSharpCodeParser.ParseNamespaceElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+        <member name="M:ABB.SrcML.Data.CSharpCodeParser.ContainerIsReference(System.Xml.Linq.XElement)">
             <summary>
-            Parses a C# namespace block
+            Tests whether this container is a reference or whether it includes a definition.
             </summary>
-            <param name="namespaceElement">the namespace element to parse</param>
-            <param name="context">the parser context</param>
+            <param name="element">The element to test</param>
+            <returns>True if this is a reference element; false otherwise</returns>
         </member>
         <member name="M:ABB.SrcML.Data.CSharpCodeParser.GetParentTypeUseElements(System.Xml.Linq.XElement)">
             <summary>
@@ -761,13 +807,6 @@
             </summary>
             <param name="typeElement">The type element to parse</param>
             <returns>The type use elements</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.CSharpCodeParser.AliasIsNamespaceImport(System.Xml.Linq.XElement)">
-            <summary>
-            Checks if the using statement is a namespace import
-            </summary>
-            <param name="aliasStatement"></param>
-            <returns></returns>
         </member>
         <member name="M:ABB.SrcML.Data.CSharpCodeParser.GetTypeForBooleanLiteral(System.String)">
             <summary>
@@ -785,7 +824,8 @@
         </member>
         <member name="M:ABB.SrcML.Data.CSharpCodeParser.GetTypeForNumberLiteral(System.String)">
             <summary>
-            Parses a C# number literal based on C# 4.0 in a Nutshell by Joseph Albahari and Ben Albahari, page 22.
+            Parses a C# number literal based on C# 4.0 in a Nutshell by Joseph Albahari and Ben
+            Albahari, page 22.
             </summary>
             <param name="literalValue">The literal value</param>
             <returns>returns the appropriate numeric type</returns>
@@ -797,12 +837,28 @@
             <param name="literalValue">The literal value</param>
             <returns>Returns "string"</returns>
         </member>
-        <member name="M:ABB.SrcML.Data.CSharpCodeParser.ContainerIsReference(System.Xml.Linq.XElement)">
+        <member name="M:ABB.SrcML.Data.CSharpCodeParser.ParseNamespaceElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
             <summary>
-            Tests whether this container is a reference or whether it includes a definition.
+            Parses a C# namespace block
             </summary>
-            <param name="element">The element to test</param>
-            <returns>True if this is a reference element; false otherwise</returns>
+            <param name="namespaceElement">the namespace element to parse</param>
+            <param name="context">the parser context</param>
+        </member>
+        <member name="M:ABB.SrcML.Data.CSharpCodeParser.ParseTypeElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Parses the given typeElement and returns a TypeDefinition object.
+            </summary>
+            <param name="typeElement">the type XML type element.</param>
+            <param name="context">the parser context</param>
+            <returns>A new TypeDefinition object</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.CSharpCodeParser.ParseTypeUseElement(System.Xml.Linq.XElement,ABB.SrcML.Data.ParserContext)">
+            <summary>
+            Parses the given typeUseElement and returns a TypeUse object. This handles the "var" keyword for C# if used
+            </summary>
+            <param name="typeUseElement">The XML type use element</param>
+            <param name="context">The parser context</param>
+            <returns>A new TypeUse object</returns>
         </member>
         <member name="P:ABB.SrcML.Data.CSharpCodeParser.ParserLanguage">
             <summary>
@@ -819,13 +875,26 @@
             Creates a new MethodCall object
             </summary>
         </member>
+        <member name="M:ABB.SrcML.Data.MethodCall.FindFirstMatchingType">
+            <summary>
+            Gets the first type definition that matches the return type for this method
+            </summary>
+            <returns>The first matching type definition</returns>
+        </member>
         <member name="M:ABB.SrcML.Data.MethodCall.FindMatches">
             <summary>
-            Finds matching <see cref="T:ABB.SrcML.Data.MethodDefinition">method definitions</see> from the <see cref="M:ABB.SrcML.Data.Scope.GetParentScopes"/> of this usage.
-            Because method calls can also be to constructors and destructors, this will also search for matching types and then constructors
-            within those types
+            Finds matching <see cref="T:ABB.SrcML.Data.MethodDefinition">method definitions</see> from the
+            <see cref="M:ABB.SrcML.Data.Scope.GetParentScopes"/> of this usage. Because method calls can also be to
+            constructors and destructors, this will also search for matching types and then
+            constructors within those types
             </summary>
             <returns>An enumerable of method definitions that match this method call</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.MethodCall.FindMatchingTypes">
+            <summary>
+            Finds all of the matching type definitions for the return type of this method definition
+            </summary>
+            <returns>An enumerable of the matching type definitions for this method</returns>
         </member>
         <member name="M:ABB.SrcML.Data.MethodCall.Matches(ABB.SrcML.Data.MethodDefinition)">
             <summary>
@@ -834,31 +903,18 @@
             <param name="definition">The method definition to test</param>
             <returns>True if this method call matches the provided method definition</returns>
         </member>
-        <member name="M:ABB.SrcML.Data.MethodCall.FindMatchingTypes">
-            <summary>
-            Finds all of the matching type definitions for the return type of this method definition
-            </summary>
-            <returns>An enumerable of the matching type definitions for this method</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.MethodCall.FindFirstMatchingType">
-            <summary>
-            Gets the first type definition that matches the return type for this method
-            </summary>
-            <returns>The first matching type definition</returns>
-        </member>
         <member name="M:ABB.SrcML.Data.MethodCall.ArgumentMatchesDefinition(ABB.SrcML.Data.IResolvesToType,ABB.SrcML.Data.ParameterDeclaration)">
             <summary>
-            Computes the intersection of the matching types for <paramref name="argument"/> and <paramref name="parameter"/>.
-            It returns true if the intersection has any elements in it.
+            Computes the intersection of the matching types for
+            <paramref name="argument"/>and
+            <paramref name="parameter"/>. It returns true if the intersection has any elements in
+            it.
             </summary>
-            <param name="argument">an argument from <see cref="P:ABB.SrcML.Data.MethodCall.Arguments"/></param>
-            <param name="parameter">a parameter from <see cref="P:ABB.SrcML.Data.MethodDefinition.Parameters"/></param>
-            <returns>true if the argument and the parameter have a matching type in common; false otherwise</returns>
-        </member>
-        <member name="P:ABB.SrcML.Data.MethodCall.ParentScope">
-            <summary>
-            The parent scope for this method call. When you update the parent scope, the object also updates the parent scope of <see cref="P:ABB.SrcML.Data.MethodCall.CallingObject"/> and all of the <see cref="P:ABB.SrcML.Data.MethodCall.Arguments"/>
-            </summary>
+            <param name="argument">an argument from see cref="Arguments"/></param>
+            <param name="parameter">a parameter from see
+            cref="MethodDefinition.Parameters"/></param>
+            <returns>true if the argument and the parameter have a matching type in common; false
+            otherwise</returns>
         </member>
         <member name="P:ABB.SrcML.Data.MethodCall.Arguments">
             <summary>
@@ -867,7 +923,8 @@
         </member>
         <member name="P:ABB.SrcML.Data.MethodCall.CallingObject">
             <summary>
-            The calling object for a use is used when you have <c>a.Foo()</c> -- this method call would refer to <c>Foo()</c> and the calling object would be <c>a</c>.
+            The calling object for a use is used when you have <c>a.Foo()</c> -- this method call
+            would refer to <c>Foo()</c> and the calling object would be <c>a</c>.
             </summary>
         </member>
         <member name="P:ABB.SrcML.Data.MethodCall.IsConstructor">
@@ -878,6 +935,13 @@
         <member name="P:ABB.SrcML.Data.MethodCall.IsDestructor">
             <summary>
             True if this is a call to a destructor
+            </summary>
+        </member>
+        <member name="P:ABB.SrcML.Data.MethodCall.ParentScope">
+            <summary>
+            The parent scope for this method call. When you update the parent scope, the object also
+            updates the parent scope of <see cref="P:ABB.SrcML.Data.MethodCall.CallingObject"/> and all of the
+            <see cref="P:ABB.SrcML.Data.MethodCall.Arguments"/>
             </summary>
         </member>
         <member name="T:ABB.SrcML.Data.NamedScope">
@@ -1387,26 +1451,35 @@
         </member>
         <member name="T:ABB.SrcML.Data.NamedScopeUse">
             <summary>
-            The NamedScopeUse class represents a use of a named scope. It can create a <see cref="T:ABB.SrcML.Data.NamedScope"/> based
-            on itself by calling <see cref="M:ABB.SrcML.Data.NamedScopeUse.CreateScope"/>.
+            The NamedScopeUse class represents a use of a named scope. It can create a
+            <see cref="T:ABB.SrcML.Data.NamedScope"/> based on itself by calling
+            <see cref="M:ABB.SrcML.Data.NamedScopeUse.CreateScope"/>.
             </summary>
         </member>
         <member name="M:ABB.SrcML.Data.NamedScopeUse.CreateScope">
             <summary>
-            Creates a <see cref="T:ABB.SrcML.Data.NamedScope"/> object from this use (along with all of its descendants based on <see cref="P:ABB.SrcML.Data.NamedScopeUse.ChildScopeUse"/>).
+            Creates a <see cref="T:ABB.SrcML.Data.NamedScope"/> object from this use (along with all of its
+            descendants based on <see cref="P:ABB.SrcML.Data.NamedScopeUse.ChildScopeUse"/>).
             </summary>
             <returns>A new named scope based on this use</returns>
         </member>
+        <member name="M:ABB.SrcML.Data.NamedScopeUse.FindMatches">
+            <summary>
+            Find named scopes that match this named scope use.
+            </summary>
+            <returns>An enumerable of named scopes with the same name as this use</returns>
+        </member>
         <member name="M:ABB.SrcML.Data.NamedScopeUse.GetFullName">
             <summary>
-            Constructs the full name for this named scope use by combining this scope with all of its <see cref="P:ABB.SrcML.Data.NamedScopeUse.ChildScopeUse">children</see>
+            Constructs the full name for this named scope use by combining this scope with all of
+            its <see cref="P:ABB.SrcML.Data.NamedScopeUse.ChildScopeUse">children</see>
             </summary>
             <returns>The full name</returns>
         </member>
         <member name="M:ABB.SrcML.Data.NamedScopeUse.Matches(ABB.SrcML.Data.NamedScope)">
             <summary>
-            Returns true if this scope matches <paramref name="definition"/>
-            </summary>
+            Returns true if this scope matches
+            <paramref name="definition"/></summary>
             <param name="definition">The scope to check</param>
             <returns>True if this and definition have the same name</returns>
         </member>
@@ -1446,19 +1519,19 @@
             Returns a string representation of this object.
             </summary>
         </member>
-        <member name="P:ABB.SrcML.Data.VariableDeclaration.Name">
-            <summary>
-            The name of the variable
-            </summary>
-        </member>
-        <member name="P:ABB.SrcML.Data.VariableDeclaration.VariableType">
-            <summary>
-            Description of the type for this variable
-            </summary>
-        </member>
         <member name="P:ABB.SrcML.Data.VariableDeclaration.Accessibility">
             <summary>
             The access modifier assigned to this type
+            </summary>
+        </member>
+        <member name="P:ABB.SrcML.Data.VariableDeclaration.Location">
+            <summary>
+            The location of this declaration in both the original source file and in XML.
+            </summary>
+        </member>
+        <member name="P:ABB.SrcML.Data.VariableDeclaration.Name">
+            <summary>
+            The name of the variable
             </summary>
         </member>
         <member name="P:ABB.SrcML.Data.VariableDeclaration.Scope">
@@ -1466,9 +1539,9 @@
             The scope where this variable is declared
             </summary>
         </member>
-        <member name="P:ABB.SrcML.Data.VariableDeclaration.Location">
+        <member name="P:ABB.SrcML.Data.VariableDeclaration.VariableType">
             <summary>
-            The location of this declaration in both the original source file and in XML.
+            Description of the type for this variable
             </summary>
         </member>
         <member name="M:ABB.SrcML.Data.ParameterDeclaration.#ctor">
@@ -1477,7 +1550,14 @@
             </summary>
         </member>
         <member name="M:ABB.SrcML.Data.ParameterDeclaration.ToString">
-            <summary>Returns a string representation of this object.</summary>
+            <summary>
+            Returns a string representation of this object.
+            </summary>
+        </member>
+        <member name="P:ABB.SrcML.Data.ParameterDeclaration.HasDefaultValue">
+            <summary>
+            Indicates whether or not there is a default value for this method parameter
+            </summary>
         </member>
         <member name="P:ABB.SrcML.Data.ParameterDeclaration.Location">
             <summary>
@@ -1486,8 +1566,8 @@
         </member>
         <member name="P:ABB.SrcML.Data.ParameterDeclaration.Locations">
             <summary>
-            The locations where this parameter is declared.
-            There can be more than one in the case of C/C++ where both the method prototype and definition declare the parameter.
+            The locations where this parameter is declared. There can be more than one in the case
+            of C/C++ where both the method prototype and definition declare the parameter.
             </summary>
         </member>
         <member name="T:ABB.SrcML.Data.ParserContext">
@@ -2256,39 +2336,47 @@
             </summary>
             <param name="otherDefinition">The scope to copy from</param>
         </member>
+        <member name="M:ABB.SrcML.Data.TypeDefinition.GetTypeForKeyword``1(ABB.SrcML.Data.AbstractUse{``0})">
+            <summary>
+            This handles the "base" keyword (C# only) and the "this" keyword. It searches for the
+            appropriate type definition depending on the context of the
+            </summary>
+            <typeparam name="T">The use type</typeparam>
+            <param name="use">The use to find the containing class for</param>
+            <returns>The class referred to by the keyword</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.TypeDefinition.AddFrom(ABB.SrcML.Data.Scope)">
+            <summary>
+            The AddFrom function adds all of the declarations and children from
+            <paramref name="otherScope"/>to this scope
+            </summary>
+            <param name="otherScope">The scope to add data from</param>
+            <returns>the new scope</returns>
+        </member>
         <member name="M:ABB.SrcML.Data.TypeDefinition.AddParentType(ABB.SrcML.Data.TypeUse)">
             <summary>
-            Adds <paramref name="parentTypeUse"/> as a parent type for this type definition
+            Adds
+            <paramref name="parentTypeUse"/>as a parent type for this type definition
             </summary>
             <param name="parentTypeUse">The parent type to add</param>
         </member>
-        <member name="M:ABB.SrcML.Data.TypeDefinition.Merge(ABB.SrcML.Data.NamedScope)">
-            <summary>
-            Merges this type definition with <paramref name="otherScope"/>. This happens when <c>otherScope.CanBeMergedInto(this)</c> evaluates to true.
-            </summary>
-            <param name="otherScope">the scope to merge with</param>
-            <returns>a new type definition from this and otherScope, or null if they couldn't be merged</returns>
-        </member>
         <member name="M:ABB.SrcML.Data.TypeDefinition.CanBeMergedInto(ABB.SrcML.Data.TypeDefinition)">
             <summary>
-            Returns true if both this and <paramref name="otherScope"/> have the same name and are both partial.
+            Returns true if both this and
+            <paramref name="otherScope"/>have the same name and are both partial.
             </summary>
             <param name="otherScope">The scope to test</param>
             <returns>true if they are the same class; false otherwise.</returns>
         </member>
         <member name="M:ABB.SrcML.Data.TypeDefinition.CanBeMergedInto(ABB.SrcML.Data.NamedScope)">
             <summary>
-            Casts <paramref name="otherScope"/> to a <see cref="T:ABB.SrcML.Data.TypeDefinition"/> and calls <see cref="M:ABB.SrcML.Data.TypeDefinition.CanBeMergedInto(ABB.SrcML.Data.TypeDefinition)"/>
+            Casts
+            <paramref name="otherScope"/>to a <see cref="T:ABB.SrcML.Data.TypeDefinition"/> and calls
+            <see cref="M:ABB.SrcML.Data.TypeDefinition.CanBeMergedInto(ABB.SrcML.Data.TypeDefinition)"/>
             </summary>
             <param name="otherScope">The scope to test</param>
-            <returns>true if <see cref="M:ABB.SrcML.Data.TypeDefinition.CanBeMergedInto(ABB.SrcML.Data.TypeDefinition)"/> evaluates to true.</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.TypeDefinition.AddFrom(ABB.SrcML.Data.Scope)">
-            <summary>
-            The AddFrom function adds all of the declarations and children from <paramref name="otherScope"/> to this scope
-            </summary>
-            <param name="otherScope">The scope to add data from</param>
-            <returns>the new scope</returns>
+            <returns>true if <see cref="M:ABB.SrcML.Data.TypeDefinition.CanBeMergedInto(ABB.SrcML.Data.TypeDefinition)"/> evaluates to
+            true.</returns>
         </member>
         <member name="M:ABB.SrcML.Data.TypeDefinition.GetParentTypes">
             <summary>
@@ -2298,17 +2386,30 @@
         </member>
         <member name="M:ABB.SrcML.Data.TypeDefinition.GetParentTypesAndSelf">
             <summary>
-            Returns this class followed by all of its parent classes (via a call to <see cref="M:ABB.SrcML.Data.TypeDefinition.GetParentTypes"/>
+            Returns this class followed by all of its parent classes (via a call to
+            <see cref="M:ABB.SrcML.Data.TypeDefinition.GetParentTypes"/>
             </summary>
-            <returns>An enumerable consisting of this object followed by the results of <see cref="M:ABB.SrcML.Data.TypeDefinition.GetParentTypes"/></returns>
+            <returns>An enumerable consisting of this object followed by the results of see
+            cref="GetParentTypes()"/&gt;</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.TypeDefinition.Merge(ABB.SrcML.Data.NamedScope)">
+            <summary>
+            Merges this type definition with
+            <paramref name="otherScope"/>. This happens when <c>otherScope.CanBeMergedInto(this)</c>
+            evaluates to true.
+            </summary>
+            <param name="otherScope">the scope to merge with</param>
+            <returns>a new type definition from this and otherScope, or null if they couldn't be
+            merged</returns>
         </member>
         <member name="M:ABB.SrcML.Data.TypeDefinition.RemoveFile(System.String)">
             <summary>
-            Removes any program elements defined in the given file.
-            If the scope is defined entirely within the given file, then it removes itself from its parent.
+            Removes any program elements defined in the given file. If the scope is defined entirely
+            within the given file, then it removes itself from its parent.
             </summary>
             <param name="fileName">The file to remove.</param>
-            <returns>A collection of any unresolved scopes that result from removing the file. The caller is responsible for re-resolving these as appropriate.</returns>
+            <returns>A collection of any unresolved scopes that result from removing the file. The
+            caller is responsible for re-resolving these as appropriate.</returns>
         </member>
         <member name="M:ABB.SrcML.Data.TypeDefinition.ToString">
             <summary>
@@ -2384,39 +2485,43 @@
             The variable use class represents a use of a variable.
             </summary>
         </member>
-        <member name="M:ABB.SrcML.Data.VariableUse.FindMatches">
-            <summary>
-            Searches through the <see cref="P:ABB.SrcML.Data.Scope.DeclaredVariables"/> to see if any of them <see cref="M:ABB.SrcML.Data.VariableUse.Matches(ABB.SrcML.Data.VariableDeclaration)">matches</see>
-            </summary>
-            <returns>An enumerable of matching variable declarations.</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.VariableUse.Matches(ABB.SrcML.Data.VariableDeclaration)">
-            <summary>
-            Tests if this variable usage is a match for <paramref name="definition"/>
-            </summary>
-            <param name="definition">The variable declaration to test</param>
-            <returns>true if this matches the variable declaration; false otherwise</returns>
-        </member>
-        <member name="M:ABB.SrcML.Data.VariableUse.FindMatchingTypes">
-            <summary>
-            Finds all of the matching type definitions for all of the variable declarations that match this variable use
-            </summary>
-            <returns>An enumerable of matching type definitions</returns>
-        </member>
         <member name="M:ABB.SrcML.Data.VariableUse.FindFirstMatchingType">
             <summary>
             Gets the first result from <see cref="M:ABB.SrcML.Data.VariableUse.FindMatchingTypes"/>
             </summary>
             <returns>The first matching variable type definition</returns>
         </member>
+        <member name="M:ABB.SrcML.Data.VariableUse.FindMatches">
+            <summary>
+            Searches through the <see cref="P:ABB.SrcML.Data.Scope.DeclaredVariables"/> to see if any of them
+            <see cref="M:ABB.SrcML.Data.VariableUse.Matches(ABB.SrcML.Data.VariableDeclaration)">matches</see>
+            </summary>
+            <returns>An enumerable of matching variable declarations.</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.VariableUse.FindMatchingTypes">
+            <summary>
+            Finds all of the matching type definitions for all of the variable declarations that
+            match this variable use
+            </summary>
+            <returns>An enumerable of matching type definitions</returns>
+        </member>
+        <member name="M:ABB.SrcML.Data.VariableUse.Matches(ABB.SrcML.Data.VariableDeclaration)">
+            <summary>
+            Tests if this variable usage is a match for
+            <paramref name="definition"/></summary>
+            <param name="definition">The variable declaration to test</param>
+            <returns>true if this matches the variable declaration; false otherwise</returns>
+        </member>
         <member name="P:ABB.SrcML.Data.VariableUse.CallingObject">
             <summary>
-            The calling object for a use is used when you have <c>a.b</c> -- this variable use would refer to <c>b</c> and the calling object would be <c>a</c>.
+            The calling object for a use is used when you have <c>a.b</c> -- this variable use would
+            refer to <c>b</c> and the calling object would be <c>a</c>.
             </summary>
         </member>
         <member name="P:ABB.SrcML.Data.VariableUse.ParentScope">
             <summary>
-            The scope that contains this variable use. If the parent scope is updated, then the parent scope of the calling object is also updated.
+            The scope that contains this variable use. If the parent scope is updated, then the
+            parent scope of the calling object is also updated.
             </summary>
         </member>
         <member name="T:ABB.SrcML.Data.XNameMaps">

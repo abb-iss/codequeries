@@ -18,10 +18,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ABB.CodeQueries
-{
-    public class Queries
-    {
+namespace ABB.CodeQueries {
+
+    public class Queries {
+
+        public static IEnumerable<MethodCall> GetAllCalls(SourceFolder folder) {
+            var allCalls = from scope in folder.Data.GlobalScope.GetDescendantScopesAndSelf()
+                           from call in scope.MethodCalls
+                           select call;
+            return allCalls;
+        }
+
+        public static int GetAllExpressions(SourceFolder folder) {
+            var expressions = from file in folder.Archive.FileUnits
+                              from expression in file.Descendants(SRC.Expression)
+                              select expression;
+            return expressions.Count();
+        }
+
         public static IEnumerable<MethodDefinition> GetAllMethods(SourceFolder folder) {
             return folder.Data.GlobalScope.GetDescendantScopesAndSelf<MethodDefinition>();
         }
@@ -36,13 +50,6 @@ namespace ABB.CodeQueries
                 results[group.Key] = group.ToList<MethodDefinition>();
             }
             return results;
-        }
-
-        public static IEnumerable<MethodCall> GetAllCalls(SourceFolder folder) {
-            var allCalls = from scope in folder.Data.GlobalScope.GetDescendantScopesAndSelf()
-                           from call in scope.MethodCalls
-                           select call;
-            return allCalls;
         }
     }
 }

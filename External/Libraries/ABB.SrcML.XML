@@ -651,7 +651,8 @@
         <member name="T:ABB.SrcML.ShortXmlFileNameMapping">
             <summary>
             Maintains a mapping between source file paths and the paths where XML versions are stored.
-            The names of the XML files are relatively short to avoid exceeding the Windows file path character limit.
+            The names of the XML files are relatively short to avoid exceeding the Windows file path
+            character limit.
             </summary>
         </member>
         <member name="T:ABB.SrcML.XmlFileNameMapping">
@@ -700,34 +701,32 @@
             </summary>
             <param name="xmlDirectory">The directory for the XML files.</param>
         </member>
-        <member name="M:ABB.SrcML.ShortXmlFileNameMapping.GetXmlPath(System.String)">
-            <summary>
-            Returns the path for the XML file mapped to <paramref name="sourcePath"/>.
-            </summary>
-            <param name="sourcePath">The path for the source file.</param>
-            <returns>The full path for an XML file based on <paramref name="sourcePath"/>.</returns>
-        </member>
-        <member name="M:ABB.SrcML.ShortXmlFileNameMapping.GetSourcePath(System.String)">
-            <summary>
-            Returns the path where the source file for <paramref name="xmlPath"/> is located.
-            </summary>
-            <param name="xmlPath">The path for the XML file.</param>
-            <returns>The full path for the source file that <paramref name="xmlPath"/> is based on.</returns>
-        </member>
-        <member name="M:ABB.SrcML.ShortXmlFileNameMapping.SaveMapping">
-            <summary>
-            Saves the file name mapping to the XmlDirectory.
-            </summary>
-        </member>
         <member name="M:ABB.SrcML.ShortXmlFileNameMapping.Dispose">
             <summary>
             Disposes of the object. This will write the mapping file to disk.
             </summary>
         </member>
-        <member name="M:ABB.SrcML.ShortXmlFileNameMapping.ReadMapping">
+        <member name="M:ABB.SrcML.ShortXmlFileNameMapping.GetSourcePath(System.String)">
             <summary>
-            Reads the mapping file in XmlDirectory. 
-            If this doesn't exist, it constructs a mapping from any existing SrcML files in the directory.
+            Returns the path where the source file for
+            <paramref name="xmlPath"/>is located.
+            </summary>
+            <param name="xmlPath">The path for the XML file.</param>
+            <returns>The full path for the source file that
+            <paramref name="xmlPath"/>is based on.</returns>
+        </member>
+        <member name="M:ABB.SrcML.ShortXmlFileNameMapping.GetXmlPath(System.String)">
+            <summary>
+            Returns the path for the XML file mapped to
+            <paramref name="sourcePath"/>.
+            </summary>
+            <param name="sourcePath">The path for the source file.</param>
+            <returns>The full path for an XML file based on
+            <paramref name="sourcePath"/>.</returns>
+        </member>
+        <member name="M:ABB.SrcML.ShortXmlFileNameMapping.SaveMapping">
+            <summary>
+            Saves the file name mapping to the XmlDirectory.
             </summary>
         </member>
         <member name="M:ABB.SrcML.ShortXmlFileNameMapping.ProcessMapFileEntry(System.String,System.String)">
@@ -736,6 +735,12 @@
             </summary>
             <param name="sourcePath"></param>
             <param name="xmlPath"></param>
+        </member>
+        <member name="M:ABB.SrcML.ShortXmlFileNameMapping.ReadMapping">
+            <summary>
+            Reads the mapping file in XmlDirectory. If this doesn't exist, it constructs a mapping
+            from any existing SrcML files in the directory.
+            </summary>
         </member>
         <member name="T:ABB.SrcML.DirectoryScanningMonitor">
             <summary>
@@ -750,8 +755,20 @@
             files to identify files that have been deleted. Next, it checks the files
             </remarks>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:ABB.SrcML.DirectoryScanningMonitor.#ctor(System.Collections.Generic.ICollection{System.String},System.Double,System.String,ABB.SrcML.IArchive,ABB.SrcML.IArchive[])" -->
-        <member name="M:ABB.SrcML.DirectoryScanningMonitor.#ctor(System.Collections.Generic.ICollection{System.String},System.String,ABB.SrcML.IArchive,ABB.SrcML.IArchive[])">
+        <member name="M:ABB.SrcML.DirectoryScanningMonitor.#ctor(System.String,System.Double,System.String,ABB.SrcML.IArchive,ABB.SrcML.IArchive[])">
+            <summary>
+            Create a new directory scanning monitor
+            </summary>
+            <param name="monitorFileName">The file name to save the list of monitored directories
+            to</param>
+            <param name="scanInterval">The <see cref="P:ABB.SrcML.DirectoryScanningMonitor.ScanInterval"/> in seconds</param>
+            <param name="baseDirectory">The base directory to use for the archives of this
+            monitor</param>
+            <param name="defaultArchive">The default archive to use</param>
+            <param name="otherArchives">Other archives for specific extensions</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:ABB.SrcML.DirectoryScanningMonitor.#ctor(System.Double,System.String,ABB.SrcML.IArchive,ABB.SrcML.IArchive[])" -->
+        <member name="M:ABB.SrcML.DirectoryScanningMonitor.#ctor(System.String,ABB.SrcML.IArchive,ABB.SrcML.IArchive[])">
             <summary>
             Create a new directory scanning monitor
             </summary>
@@ -762,14 +779,10 @@
             <param name="defaultArchive">The default archive to use</param>
             <param name="otherArchives">Other archives for specific extensions</param>
         </member>
-        <member name="M:ABB.SrcML.DirectoryScanningMonitor.#ctor(System.String,ABB.SrcML.IArchive,ABB.SrcML.IArchive[])">
+        <member name="M:ABB.SrcML.DirectoryScanningMonitor.AddDirectoriesFromSaveFile">
             <summary>
-            Create a new directory scanning monitor with the default scan interval.
+            Loads the list of monitored directories from <see cref="P:ABB.SrcML.DirectoryScanningMonitor.MonitoredDirectoriesFilePath"/>.
             </summary>
-            <param name="baseDirectory">The base directory to use for the archives of this
-            monitor</param>
-            <param name="defaultArchive">The default archive to use</param>
-            <param name="otherArchives">Other archives for specific extensions</param>
         </member>
         <member name="M:ABB.SrcML.DirectoryScanningMonitor.AddDirectory(System.String)">
             <summary>
@@ -840,6 +853,16 @@
             <paramref name="fileName"/></summary>
             <param name="fileName">The file name to write the list of directories to</param>
         </member>
+        <member name="M:ABB.SrcML.DirectoryScanningMonitor.GetFullPath(System.String)">
+            <summary>
+            Gets the full path for a given path. This calls
+            <see cref="M:System.IO.Path.GetFullPath(System.String)"/> and then trims any
+            <see cref="F:System.IO.Path.PathSeparator">path separators</see> off of the end.
+            </summary>
+            <param name="path">The path to get a full path for</param>
+            <returns>The full path for
+            <paramref name="path"/>with no trailing path separators</returns>
+        </member>
         <member name="M:ABB.SrcML.DirectoryScanningMonitor.ScanTimer_Elapsed(System.Object,System.Timers.ElapsedEventArgs)">
             <summary>
             Runs whenever the built-in timer expires.
@@ -862,6 +885,12 @@
             <summary>
             The scan interval is the number of seconds between each scan. By default it is set to
             60.
+            </summary>
+        </member>
+        <member name="P:ABB.SrcML.DirectoryScanningMonitor.MonitoredDirectoriesFilePath">
+            <summary>
+            the file path to save the list of directories to when <see cref="M:ABB.SrcML.DirectoryScanningMonitor.WriteMonitoringList"/>
+            is called.
             </summary>
         </member>
         <member name="T:ABB.SrcML.Src2SrcMLRunner2">
@@ -1900,7 +1929,8 @@
         </member>
         <member name="T:ABB.SrcML.SrcMLFile">
             <summary>
-            This class represents a SrcMLFile. The underlying data is stored in an XML file, and can be accessed in a number of ways.
+            This class represents a SrcMLFile. The underlying data is stored in an XML file, and can be
+            accessed in a number of ways.
             </summary>
         </member>
         <member name="M:ABB.SrcML.SrcMLFile.#ctor(ABB.SrcML.SrcMLFile)">
@@ -1915,62 +1945,96 @@
             </summary>
             <param name="fileName">The file to read from.</param>
         </member>
+        <member name="M:ABB.SrcML.SrcMLFile.WriteXmlnsAttributes(System.Xml.XmlWriter)">
+            <summary>
+            Write attribute strings for each SrcML namespace to the given XmlWriter. This should be
+            called immediately after XmlWriter.WriteStartElement.
+            </summary>
+            <param name="writer">Instance of XmlWriter to write to.</param>
+        </member>
+        <member name="M:ABB.SrcML.SrcMLFile.GetXDocument">
+            <summary>
+            Get this SrcML file as an XDocument. This should not be used on very large SrcML file as
+            it loads the entire XML file into memory.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ABB.SrcML.SrcMLFile.GetXMLString">
+            <summary>
+            Added by JZ on 12/3/2012 Read the srcML file and generate a string of the content of
+            this file.
+            </summary>
+            <returns>The string of the content of this file.</returns>
+        </member>
+        <member name="M:ABB.SrcML.SrcMLFile.IndexOfUnit(System.String)">
+            <summary>
+            Gets the index number of a given filename from the SrcML document. If this is being
+            passed to SrcML.ExtractSourceFile(), +1 must be added to it.
+            </summary>
+            <param name="fileName">The filename to get an index for.</param>
+            <returns>the index of the file. -1 if not found.</returns>
+        </member>
         <member name="M:ABB.SrcML.SrcMLFile.Merge(ABB.SrcML.SrcMLFile,System.String)">
             <summary>
-            Merges this SrcMLFile with another SrcMLFile. 
+            Merges this SrcMLFile with another SrcMLFile.
             </summary>
             <param name="other">The second SrcML File to merge with.</param>
             <param name="outputFileName">The path to write the resulting SrcMLFile to.</param>
             <returns>The newly merged SrcMLFile.</returns>
         </member>
+        <member name="M:ABB.SrcML.SrcMLFile.QueryEachUnit(ABB.SrcML.ITransform)">
+            <summary>
+            Works in conjunction with <see cref="P:ABB.SrcML.AbstractDocument.FileUnits"/> to execute a query
+            against each file in a SrcML document
+            </summary>
+            <param name="transform">The transform object with the
+            see cref="ITransform.Query"/&gt;</param>
+            <returns>yields each node that matches the query in
+            <paramref name="transform"/></returns>
+        </member>
         <member name="M:ABB.SrcML.SrcMLFile.RelativePath(System.Xml.Linq.XNode)">
             <summary>
-            Get the file path relative to <see cref="P:ABB.SrcML.SrcMLFile.ProjectDirectory"/> for the unit containing the given node.
+            Get the file path relative to <see cref="P:ABB.SrcML.SrcMLFile.ProjectDirectory"/> for the unit containing the
+            given node.
             </summary>
             <param name="node">The node.</param>
             <returns>The relative file path to that node.</returns>
         </member>
-        <member name="M:ABB.SrcML.SrcMLFile.GetXDocument">
-            <summary>
-            Get this SrcML file as an XDocument. This should not be used on very large SrcML file as it
-            loads the entire XML file into memory.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ABB.SrcML.SrcMLFile.QueryEachUnit(ABB.SrcML.ITransform)">
-            <summary>
-            Works in conjunction with <see cref="P:ABB.SrcML.AbstractDocument.FileUnits"/> to execute a query against each file in a SrcML document
-            </summary>
-            <param name="transform">The transform object with the <see cref="M:ABB.SrcML.ITransform.Query(System.Xml.Linq.XElement)"/></param>
-            <returns>yields each node that matches the query in <paramref name="transform"/></returns>
-        </member>
         <member name="M:ABB.SrcML.SrcMLFile.Save(System.String,System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement})">
             <summary>
-            Writes this SrcML file to <paramref name="fileName"/> with changes stored in <paramref name="changedFiles"/>.
-            Currently, this only handles changes to existing files. New files will be ignored.
+            Writes this SrcML file to
+            <paramref name="fileName"/>with changes stored in
+            <paramref name="changedFiles"/>. Currently, this only handles changes to existing files.
+            New files will be ignored.
             </summary>
-            <param name="fileName">The file to write to. If it exists it will be deleted and replaced.</param>
-            <param name="changedFiles">A list of units with changes. These will be substituted for the original units.</param>
+            <param name="fileName">The file to write to. If it exists it will be deleted and
+            replaced.</param>
+            <param name="changedFiles">A list of units with changes. These will be substituted for
+            the original units.</param>
         </member>
         <member name="M:ABB.SrcML.SrcMLFile.Save(System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement})">
             <summary>
-            Writes changes to this SrcML file back to the current file (<see cref="P:ABB.SrcML.AbstractDocument.FileName"/>).
+            Writes changes to this SrcML file back to the current file
+            (<see cref="P:ABB.SrcML.AbstractDocument.FileName"/>).
             <seealso cref="M:ABB.SrcML.SrcMLFile.Save(System.String,System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement})"/>
             </summary>
-            <param name="changedFiles">a list of units with changes. These will be substituted for the original units</param>
+            <param name="changedFiles">a list of units with changes. These will be substituted for
+            the original units</param>
         </member>
         <member name="M:ABB.SrcML.SrcMLFile.Save(System.String)">
             <summary>
-            Writes this SrcML file to <paramref name="fileName"/> without making any changes.
-            <para>This is identical to <c>srcmlDoc.Save(fileName, Enumerable.Empty&lt;XElement&gt;()</c></para>
+            Writes this SrcML file to
+            <paramref name="fileName"/>without making any changes. <para>This is identical to
+            <c>srcmlDoc.Save(fileName, Enumerable.Empty&lt;XElement&gt;()</c></para>
             <seealso cref="M:System.Linq.Enumerable.Empty``1"/>
             </summary>
-            <param name="fileName">the file to write to. If it exists it will be deleted and replaced.</param>
+            <param name="fileName">the file to write to. If it exists it will be deleted and
+            replaced.</param>
         </member>
         <member name="M:ABB.SrcML.SrcMLFile.Write(System.String)">
             <summary>
-            Saves the document to the file. This uses <see cref="T:System.Xml.Linq.XDocument"/>, which is more memory intensive.
-            <seealso cref="M:System.Xml.Linq.XDocument.Save(System.String)"/>
+            Saves the document to the file. This uses <see cref="T:System.Xml.Linq.XDocument"/>, which
+            is more memory intensive. <seealso cref="M:System.Xml.Linq.XDocument.Save(System.String)"/>
             </summary>
             <param name="fileName">The filename to write to.</param>
         </member>
@@ -1980,32 +2044,12 @@
             <seealso cref="M:ABB.SrcML.SrcMLFile.Write(System.String)"/>
             </summary>
         </member>
-        <member name="M:ABB.SrcML.SrcMLFile.IndexOfUnit(System.String)">
-            <summary>
-            Gets the index number of a given filename from the SrcML document.
-            If this is being passed to SrcML.ExtractSourceFile(), +1 must be added to it.
-            </summary>
-            <param name="fileName">The filename to get an index for.</param>
-            <returns>the index of the file. -1 if not found.</returns>
-        </member>
-        <member name="M:ABB.SrcML.SrcMLFile.WriteXmlnsAttributes(System.Xml.XmlWriter)">
-            <summary>
-            Write attribute strings for each SrcML namespace to the given XmlWriter. This should be called immediately after XmlWriter.WriteStartElement.
-            </summary>
-            <param name="writer">Instance of XmlWriter to write to.</param>
-        </member>
-        <member name="M:ABB.SrcML.SrcMLFile.GetXMLString">
-            <summary>
-            Added by JZ on 12/3/2012
-            Read the srcML file and generate a string of the content of this file.
-            </summary>
-            <returns>The string of the content of this file.</returns>
-        </member>
         <member name="P:ABB.SrcML.SrcMLFile.ProjectDirectory">
             <summary>
             The project rootUnit directory for this SrcMLFile.
             </summary>
-            <value>The ProjectDirectory property gets &amp; sets the rootUnit directory for this SrcMLFile.</value>
+            <value>The ProjectDirectory property gets &amp; sets the rootUnit directory for this
+            SrcMLFile.</value>
         </member>
         <member name="T:ABB.SrcML.SrcMLHelper">
             <summary>
@@ -2264,6 +2308,35 @@
             <summary>
             Returns false, as this dictionary is never read-only
             </summary>
+        </member>
+        <member name="T:ABB.SrcML.Utilities.FileHelper">
+            <summary>
+            FileHelper contains numerous static methods for working with files
+            </summary>
+        </member>
+        <member name="M:ABB.SrcML.Utilities.FileHelper.GetCommonPath(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            GetCommonPath finds the longest common path for all of the files in
+            <paramref name="filePaths"/>that is
+            <paramref name="startingPoint"/>or a parent of it.
+            </summary>
+            <param name="startingPoint">The starting point to start searching from</param>
+            <param name="filePaths">The enumerable of file paths</param>
+            <returns>The longest path that is common to all
+            <paramref name="filePaths"/>. If it cannot find one, null is returned.</returns>
+        </member>
+        <member name="M:ABB.SrcML.Utilities.FileHelper.GetCommonPath(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Finds the longest common path for all of the files in
+            <paramref name="filePaths"/></summary>
+            <remarks>
+            This calls <see cref="M:ABB.SrcML.Utilities.FileHelper.GetCommonPath(System.String,System.Collections.Generic.IEnumerable{System.String})"/> where the first file
+            in
+            <paramref name="filePaths"/>is used as the starting point
+            </remarks>
+            <param name="filePaths">The enumerable of file paths</param>
+            <returns>The longest path that is common to all
+            <paramref name="filePaths"/>. If it cannot find one, null is returned.</returns>
         </member>
         <member name="T:ABB.SrcML.Utilities.KsuAdapter">
             <summary>

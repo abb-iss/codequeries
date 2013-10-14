@@ -10,6 +10,7 @@
 *****************************************************************************/
 
 using ABB.SrcML;
+using ABB.SrcML.Data;
 using Mono.Options;
 using System;
 using System.Collections.Generic;
@@ -19,16 +20,27 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ABB.CodeQueries.Runner {
-    delegate void Command(SourceFolder folder, TextWriter writer);
 
-    class Program {
-        static void Main(string[] args) {
+    internal delegate void Command(SourceFolder folder, TextWriter writer);
+
+    internal class Program {
+
+        private static Command GetCommand(string commandName) {
+            if(commandName == "print-methods") {
+                return PrintMethods;
+            } else if(commandName == "print-calls") {
+                return PrintCalls;
+            }
+            return null;
+        }
+
+        private static void Main(string[] args) {
             string archivePath = "srcml";
             string outputPath = null;
             Command command = null;
 
             bool shouldShowHelp = false;
-            Dictionary<string, Language> extensionMapping = new Dictionary<string,Language>();
+            Dictionary<string, Language> extensionMapping = new Dictionary<string, Language>();
 
             OptionSet options = new OptionSet() {
                 { "a|archive=", "the location of the srcML {ARCHIVE}", a => archivePath = a },
@@ -71,47 +83,51 @@ namespace ABB.CodeQueries.Runner {
                 }
 
                 var sourceFolder = new SourceFolder(sourceFolderPaths.First(), archive);
-                
+
                 sourceFolder.UpdateArchive();
                 using(TextWriter output = (outputPath == null ? Console.Out : new StreamWriter(outputPath))) {
                     command(sourceFolder, output);
                 }
-                
-            }
-        }
-
-        private static void PrintMethods(SourceFolder folder, TextWriter output) {
-            output.WriteLine("File Name,Line Number,Method Name");
-            foreach(var method in Queries.GetAllMethods(folder)) {
-                output.WriteLine("{0},{1},{2}", method.PrimaryLocation.SourceFileName, method.PrimaryLocation.StartingLineNumber, method.ToString());
             }
         }
 
         private static void PrintCalls(SourceFolder folder, TextWriter output) {
-            output.WriteLine("Call File Name,Call Line,Call Column,Call Name,Call Argument Count,Method File Name,Method Line,Method Column,Method Name,Method Parameter Count");
+            output.WriteLine("Call File Number, Caller Name, Call Line Number, Call Column Number, Callee Name, Callee Definition File Name, Callee Definition Line Number");
             foreach(var call in Queries.GetAllCalls(folder)) {
-                string callInfo = String.Join(",", call.Location.SourceFileName, call.Location.StartingLineNumber, call.Location.StartingColumnNumber, call.Name, call.Arguments.Count);
+                var caller = call.ParentScope.GetParentScopesAndSelf<NamedScope>().FirstOrDefault();
+                string callerName = (caller == null ? String.Empty : caller.Name);
+                string callInfo = String.Join(",", Q(call.Location.SourceFileName),
+                    Q(callerName),
+                    Q(call.Location.StartingLineNumber.ToString()),
+                    Q(call.Location.StartingColumnNumber.ToString()),
+                    Q(call.Name)
+                );
                 var matchingMethods = call.FindMatches();
-                
+
                 if(matchingMethods.Any()) {
                     foreach(var method in matchingMethods) {
-                        string methodInfo = String.Join(",", method.PrimaryLocation.SourceFileName, method.PrimaryLocation.StartingLineNumber, method.PrimaryLocation.StartingColumnNumber, method.GetFullName(), method.Parameters.Count);
-                        output.WriteLine("{0},{1}", callInfo, methodInfo);
+                        foreach(var location in method.Locations) {
+                            string methodInfo = String.Join(",", Q(location.SourceFileName), Q(location.StartingLineNumber.ToString()));
+                            output.WriteLine("{0},{1}", callInfo, methodInfo);
+                        }
                     }
                 } else {
-                    output.WriteLine("{0},,,,,", callInfo);
+                    output.WriteLine("{0},,", callInfo);
                 }
             }
         }
 
-        private static Command GetCommand(string commandName) {
-            if(commandName == "print-methods") {
-                return PrintMethods;
-            } else if(commandName == "print-calls") {
-                return PrintCalls;
+        private static void PrintMethods(SourceFolder folder, TextWriter output) {
+            output.WriteLine("File Name,Line Number,Method Name, Method Signature");
+            foreach(var method in Queries.GetAllMethods(folder)) {
+                output.WriteLine("{0},{1},{2},{3}", Q(method.PrimaryLocation.SourceFileName), Q(method.PrimaryLocation.StartingLineNumber.ToString()), Q(method.Name), Q(method.ToString()));
             }
-            return null;
         }
+
+        private static string Q(string str) {
+            return '"' + str + '"';
+        }
+
         private static void ShowHelp(OptionSet p) {
             Console.WriteLine("Usage: cq [OPTIONS]+ [folders]");
             Console.WriteLine();
