@@ -92,7 +92,7 @@ namespace ABB.CodeQueries.Runner {
         }
 
         private static void PrintCalls(SourceFolder folder, TextWriter output) {
-            output.WriteLine("Call File Number, Caller Name, Call Line Number, Call Column Number, Callee Name, Callee Definition File Name, Callee Definition Line Number");
+            output.WriteLine("Call File Name, Caller Name, Call Line Number, Call Column Number, Callee Name, Callee Definition File Name, Callee Definition Line Number");
             foreach(var call in Queries.GetAllCalls(folder)) {
                 var caller = call.ParentScope.GetParentScopesAndSelf<NamedScope>().FirstOrDefault();
                 string callerName = (caller == null ? String.Empty : caller.Name);
